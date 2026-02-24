@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
+import useScrollReveal from '../hooks/useScrollReveal';
 
 const Journey = () => {
   const { isDark } = useTheme();
+  const [sectionRef, isVisible] = useScrollReveal(0.05);
 
   const journey = [
     {
@@ -59,7 +61,7 @@ const Journey = () => {
       icon: '🌐',
       bgColor: '#f97316',
     },
-    
+
   ];
 
   const containerVariants = {
@@ -85,9 +87,9 @@ const Journey = () => {
   return (
     <section
       id="journey"
-      className={`py-20 px-4 transition-colors duration-300 ${
-        isDark ? 'bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50'
-      }`}
+      ref={sectionRef}
+      className={`py-20 px-4 transition-colors duration-300 ${isDark ? 'bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50'
+        }`}
     >
       <div className="max-w-4xl mx-auto">
         {/* Header */}
@@ -99,23 +101,20 @@ const Journey = () => {
           className="text-center mb-16"
         >
           <h2
-            className={`text-4xl md:text-5xl font-bold mb-4 ${
-              isDark
+            className={`text-4xl md:text-5xl font-bold mb-4 ${isDark
                 ? 'text-white'
                 : 'bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent'
-            }`}
+              }`}
           >
             My Journey
           </h2>
           <div
-            className={`h-1 w-20 mx-auto rounded-full bg-gradient-to-r from-blue-600 to-purple-600 ${
-              isDark ? 'opacity-70' : 'opacity-100'
-            }`}
+            className={`h-1 w-20 mx-auto rounded-full bg-gradient-to-r from-blue-600 to-purple-600 ${isDark ? 'opacity-70' : 'opacity-100'
+              }`}
           />
           <p
-            className={`mt-4 text-lg ${
-              isDark ? 'text-gray-300' : 'text-gray-600'
-            }`}
+            className={`mt-4 text-lg ${isDark ? 'text-gray-300' : 'text-gray-600'
+              }`}
           >
             From learning to building, exploring new technologies and creating impact
           </p>
@@ -125,14 +124,13 @@ const Journey = () => {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
+          animate={isVisible ? 'visible' : 'hidden'}
           className="relative"
         >
           {/* Vertical Line */}
           <div
-            className={`absolute left-0 md:left-1/2 top-0 bottom-0 w-1 md:w-0.5 ${
-              isDark ? 'bg-gray-700' : 'bg-gradient-to-b from-blue-400 via-purple-400 to-pink-400'
-            }`}
+            className={`absolute left-0 md:left-1/2 top-0 bottom-0 w-1 md:w-0.5 ${isDark ? 'bg-gray-700' : 'bg-gradient-to-b from-blue-400 via-purple-400 to-pink-400'
+              }`}
             style={{ transform: 'translateX(-50%)' }}
           />
 
@@ -142,9 +140,8 @@ const Journey = () => {
               <motion.div
                 key={item.id}
                 variants={itemVariants}
-                className={`relative ${index % 2 === 0 ? 'md:pr-1/2' : 'md:pl-1/2'} md:flex ${
-                  index % 2 === 1 ? 'md:flex-row-reverse' : ''
-                }`}
+                className={`relative ${index % 2 === 0 ? 'md:pr-1/2' : 'md:pl-1/2'} md:flex ${index % 2 === 1 ? 'md:flex-row-reverse' : ''
+                  }`}
               >
                 {/* Timeline Dot - Hidden */}
 
@@ -154,35 +151,32 @@ const Journey = () => {
                   className={`ml-20 md:ml-0 md:w-1/2 ${index % 2 === 1 ? 'md:pr-12' : 'md:pl-12'}`}
                 >
                   <div
-                    className={`p-6 rounded-2xl transition-all duration-300 ${
-                      isDark
+                    className={`p-6 rounded-2xl transition-all duration-300 ${isDark
                         ? 'bg-gray-800 border border-gray-700 hover:border-gray-600'
                         : 'bg-white shadow-lg border border-transparent hover:shadow-xl hover:border-blue-200'
-                    }`}
+                      }`}
                   >
                     {/* Badge */}
                     <div className="flex items-center gap-2 mb-3">
                       <span
-                        className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                          item.type === 'education'
+                        className={`px-3 py-1 rounded-full text-xs font-semibold ${item.type === 'education'
                             ? isDark
                               ? 'bg-blue-900/40 text-blue-300'
                               : 'bg-blue-100 text-blue-700'
                             : item.type === 'certificate'
-                            ? isDark
-                              ? 'bg-green-900/40 text-green-300'
-                              : 'bg-green-100 text-green-700'
-                            : isDark
-                            ? 'bg-purple-900/40 text-purple-300'
-                            : 'bg-purple-100 text-purple-700'
-                        }`}
+                              ? isDark
+                                ? 'bg-green-900/40 text-green-300'
+                                : 'bg-green-100 text-green-700'
+                              : isDark
+                                ? 'bg-purple-900/40 text-purple-300'
+                                : 'bg-purple-100 text-purple-700'
+                          }`}
                       >
                         {item.type === 'education' ? '🎓 Education' : item.type === 'certificate' ? '📜 Certificate' : '⭐ Achievement'}
                       </span>
                       <span
-                        className={`text-xs font-medium ${
-                          isDark ? 'text-gray-400' : 'text-gray-500'
-                        }`}
+                        className={`text-xs font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'
+                          }`}
                       >
                         {item.duration}
                       </span>
@@ -190,18 +184,16 @@ const Journey = () => {
 
                     {/* Title */}
                     <h3
-                      className={`text-xl font-bold mb-1 ${
-                        isDark ? 'text-white' : 'text-gray-900'
-                      }`}
+                      className={`text-xl font-bold mb-1 ${isDark ? 'text-white' : 'text-gray-900'
+                        }`}
                     >
                       {item.title}
                     </h3>
 
                     {/* Institution */}
                     <p
-                      className={`text-sm font-medium mb-3 ${
-                        isDark ? 'text-gray-400' : 'text-gray-600'
-                      }`}
+                      className={`text-sm font-medium mb-3 ${isDark ? 'text-gray-400' : 'text-gray-600'
+                        }`}
                     >
                       {item.institution}
                       {item.semester && ` • ${item.semester}`}
@@ -210,9 +202,8 @@ const Journey = () => {
                     {/* Location */}
                     {item.location && (
                       <p
-                        className={`text-xs mb-3 ${
-                          isDark ? 'text-gray-500' : 'text-gray-500'
-                        }`}
+                        className={`text-xs mb-3 ${isDark ? 'text-gray-500' : 'text-gray-500'
+                          }`}
                       >
                         {item.location}
                       </p>
@@ -220,9 +211,8 @@ const Journey = () => {
 
                     {/* Details */}
                     <p
-                      className={`text-sm leading-relaxed ${
-                        isDark ? 'text-gray-300' : 'text-gray-700'
-                      }`}
+                      className={`text-sm leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-700'
+                        }`}
                     >
                       {item.details}
                     </p>

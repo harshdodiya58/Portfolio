@@ -31,6 +31,8 @@ My career goal is to secure a Full Stack Developer role where I can contribute t
       { name: "CSS3", level: "Advanced" },
       { name: "Tailwind CSS", level: "Advanced" },
       { name: "JavaScript (ES6+)", level: "Advanced" },
+      { name: "TypeScript", level: "Advanced" },
+      
     ],
     backend: [
       { name: "Node.js", level: "Intermediate" },
