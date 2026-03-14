@@ -6,16 +6,18 @@ export const portfolioData = {
   linkedin: "https://www.linkedin.com/in/harsh-dodiya-5b7864270/",
   github: "https://github.com/harshdodiya58/",
   resumeUrl: "/resume.pdf", // Resume file in public folder
-  
+
   nav: [
     { id: 1, label: "Home", href: "#home" },
     { id: 2, label: "About", href: "#about" },
     { id: 3, label: "Skills", href: "#skills" },
     { id: 4, label: "Projects", href: "#projects" },
     { id: 5, label: "Education", href: "#education" },
-    { id: 6, label: "Contact", href: "#contact" },
+    { id: 6, label: "Experience", href: "#experience" },
+    { id: 7, label: "Certificates", href: "#certificates" },
+    { id: 8, label: "Contact", href: "#contact" },
   ],
-  
+
   summary: `I am a passionate B.Tech Computer Science Engineering student with a strong focus on Full Stack Development, particularly the MERN (MongoDB, Express.js, React.js, Node.js) technology stack. My journey in software development has been driven by a genuine interest in building scalable, efficient, and user-centric web applications.
 
 Currently in my 6th semester, I have dedicated significant time to mastering both frontend and backend technologies. I specialize in creating responsive user interfaces with React.js and Tailwind CSS, while building robust server-side solutions using Node.js and Express.js. My experience with MongoDB has enabled me to design and implement efficient database schemas for various projects.
@@ -32,7 +34,7 @@ My career goal is to secure a Full Stack Developer role where I can contribute t
       { name: "Tailwind CSS", level: "Advanced" },
       { name: "JavaScript (ES6+)", level: "Advanced" },
       { name: "TypeScript", level: "Advanced" },
-      
+
     ],
     backend: [
       { name: "Node.js", level: "Intermediate" },

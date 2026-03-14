@@ -1,138 +1,122 @@
 import { motion } from 'framer-motion';
-import { portfolioData } from '../data/portfolioData';
+import { useTheme } from '../context/ThemeContext';
+import useScrollReveal from '../hooks/useScrollReveal';
 
 const Education = () => {
+  const { isDark } = useTheme();
+  const [sectionRef, isVisible] = useScrollReveal(0.05);
+
+  const education = [
+    {
+      id: 1,
+      type: 'education',
+      title: 'Bachelor of Technology in Computer Science & Engineering',
+      institution: 'CHARUSAT (Chandubhai S. Patel Institute of Technology)',
+      duration: '2023 - 2027',
+      semester: '6th Semester',
+      location: '📍 Anand, Gujarat',
+      details: 'Core competencies: Data Structures, Algorithms, Web Development, Database Management, Software Engineering',
+      icon: '🎓',
+      bgColor: '#3b82f6',
+    },
+    {
+      id: 2,
+      type: 'education',
+      title: 'Diploma in Computer Engineering',
+      institution: 'Bhailalbhai & Bhikhabhai Institute of Technology',
+      duration: '2021 - 2024',
+      semester: 'Diploma Level',
+      location: '📍 VV Nagar, Anand, Gujarat',
+      details: 'Foundation in Computer Engineering with focus on programming fundamentals, digital electronics, and core engineering concepts.',
+      icon: '🏫',
+      bgColor: '#6366f1',
+    }
+  ];
+
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
+    visible: { opacity: 1, transition: { staggerChildren: 0.2, delayChildren: 0.1 } },
   };
 
   const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-      },
-    },
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: 'easeOut' } },
   };
 
   return (
-    <section id="education" className="py-20 relative">
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
+    <section
+      id="education"
+      ref={sectionRef}
+      className={`py-20 px-4 transition-colors duration-300 ${isDark ? 'bg-gray-900 border-t border-gray-800' : 'bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50'
+        }`}
+    >
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
         <motion.div
-          className="absolute -top-40 -left-40 w-80 h-80 bg-blue-200/30 rounded-full blur-3xl"
-          animate={{ y: [0, -50, 0] }}
-          transition={{ duration: 8, repeat: Infinity }}
-        />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
         >
-          <motion.h2
-            variants={itemVariants}
-            className="text-4xl md:text-5xl font-bold text-center mb-4"
-          >
-            <span className="text-gradient">Education</span>
-          </motion.h2>
+          <p className="text-sm font-bold uppercase tracking-widest text-blue-600 mb-2">ACADEMIC BACKGROUND</p>
+          <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${isDark ? 'text-white' : 'bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent'}`}>
+            Education
+          </h2>
+          <div className={`h-1 w-20 mx-auto rounded-full bg-gradient-to-r from-blue-600 to-purple-600 ${isDark ? 'opacity-70' : 'opacity-100'}`} />
+        </motion.div>
 
-          <motion.div
-            variants={itemVariants}
-            className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-12"
-          ></motion.div>
+        {/* Timeline */}
+        <motion.div variants={containerVariants} initial="hidden" animate={isVisible ? 'visible' : 'hidden'} className="relative">
+          {/* Vertical Line */}
+          <div
+            className={`absolute left-8 md:left-1/2 top-0 bottom-0 w-1 md:w-0.5 ${isDark ? 'bg-gray-700' : 'bg-gradient-to-b from-blue-400 via-purple-400 to-pink-400'}`}
+            style={{ transform: 'translateX(-50%)' }}
+          />
 
-          <motion.div
-            variants={itemVariants}
-            className="max-w-3xl mx-auto"
-          >
-            <div className="bg-white rounded-2xl p-8 md:p-10 border border-gray-200 hover:border-blue-300 shadow-lg hover:shadow-xl transition-all duration-300">
-              <div className="flex items-start space-x-6">
-                <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                    <svg
-                      className="w-8 h-8 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 14l9-5-9-5-9 5 9 5z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 14v9M5 12H2a10 10 0 0010 10h0a10 10 0 0010-10h-3"
-                      />
-                    </svg>
-                  </div>
+          {/* Timeline Items */}
+          <div className="space-y-16">
+            {education.map((item, index) => (
+              <motion.div
+                key={item.id}
+                variants={itemVariants}
+                className={`relative ${index % 2 === 0 ? 'md:pr-1/2' : 'md:pl-1/2'} md:flex ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}
+              >
+                {/* Timeline Dot */}
+                <div
+                  className={`absolute left-8 md:left-1/2 w-10 h-10 rounded-full flex items-center justify-center -translate-x-1/2 translate-y-6 ${isDark ? 'bg-gray-900 border-[3px] border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'bg-white border-[3px] border-blue-500 shadow-md'
+                    } z-10`}
+                >
+                  <span className="text-lg">{item.icon}</span>
                 </div>
 
-                <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                    {portfolioData.education.degree}
-                  </h3>
-                  <p className="text-xl text-blue-600 font-semibold mb-3">
-                    {portfolioData.education.university}
-                  </p>
-                  <div className="flex flex-wrap items-center gap-4 text-gray-700">
-                    <span className="flex items-center gap-2">
-                      <svg
-                        className="w-5 h-5 text-green-600"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      {portfolioData.education.status}
-                    </span>
-                    <span className="flex items-center gap-2">
-                      <svg
-                        className="w-5 h-5 text-purple-600"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        />
-                      </svg>
-                      {portfolioData.education.currentSemester}
-                    </span>
+                {/* Content Card */}
+                <motion.div
+                  whileHover={{ scale: 1.02, translateY: -5 }}
+                  className={`ml-24 md:ml-0 md:w-1/2 ${index % 2 === 1 ? 'md:pr-24' : 'md:pl-24'}`}
+                >
+                  <div className={`relative p-8 rounded-2xl transition-all duration-300 ${isDark ? 'bg-gray-800/80 backdrop-blur-sm border border-gray-700 hover:border-gray-500' : 'bg-white shadow-xl border border-transparent hover:border-blue-200'}`}>
+
+                    {/* Connecting line helper point */}
+                    <div className={`hidden md:block absolute top-[2.75rem] w-8 h-[2px] ${index % 2 === 1 ? '-right-8' : '-left-8'} ${isDark ? 'bg-gray-700' : 'bg-blue-300'}`} />
+
+                    <div className="flex justify-between items-center mb-4">
+                      <span className={`px-4 py-1.5 rounded-full text-xs font-semibold ${isDark ? 'bg-blue-900/40 text-blue-300' : 'bg-blue-100 text-blue-700'}`}>
+                        🎓 {item.duration}
+                      </span>
+                      {item.semester && <span className={`text-xs font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{item.semester}</span>}
+                    </div>
+
+                    <h3 className={`text-xl font-bold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>{item.title}</h3>
+                    <p className={`text-sm font-medium mb-3 ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>{item.institution}</p>
+                    {item.location && <p className={`text-xs mb-4 ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>{item.location}</p>}
+                    <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>{item.details}</p>
+                    <div className="mt-5 h-1 w-12 rounded-full opacity-80" style={{ backgroundColor: item.bgColor }} />
                   </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>

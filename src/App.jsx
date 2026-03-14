@@ -6,7 +6,10 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
-import Journey from './components/Journey';
+import Education from './components/Education';
+import Experience from './components/Experience';
+import Certificates from './components/Certificates';
+import ScrollProgress from './components/ScrollProgress';
 import Contact from './components/Contact';
 
 function App() {
@@ -28,8 +31,11 @@ function App() {
         <About />
         <Skills />
         <Projects />
-        <Journey />
+        <Education />
+        <Experience />
+        <Certificates />
         <Contact />
+        <ScrollProgress />
       </div>
     </ThemeProvider>
   );

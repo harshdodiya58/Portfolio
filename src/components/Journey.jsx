@@ -10,17 +10,28 @@ const Journey = () => {
     {
       id: 1,
       type: 'education',
-      title: 'Diploma in Information Technology',
+      title: 'Diploma in Computer Engineering',
       institution: 'Bhailalbhai & Bhikhabhai Institute of Technology',
       duration: 'Completed-2024',
       semester: 'Diploma Level',
       location: '📍 VV Nagar, Anand, Gujarat',
-      details: 'Foundation in IT with focus on programming fundamentals, database basics, and web technologies.',
+      details: 'Foundation in Computer Engineering with focus on programming fundamentals, digital electronics, and core engineering concepts.',
       icon: '🏫',
       bgColor: '#6366f1',
     },
     {
       id: 2,
+      type: 'internship',
+      title: 'Web Development Intern',
+      institution: 'Charotar Gas',
+      duration: '1 Month',
+      location: '📍 Anand, Gujarat',
+      details: 'Learned fundamental concepts of web development and successfully completed all assigned tasks, gaining hands-on practical experience.',
+      icon: '💼',
+      bgColor: '#10b981',
+    },
+    {
+      id: 3,
       type: 'education',
       title: 'Bachelor of Technology in Computer Science & Engineering',
       institution: 'CHARUSAT (Chandubhai S. Patel Institute of Technology)',
@@ -32,33 +43,14 @@ const Journey = () => {
       bgColor: '#3b82f6',
     },
     {
-      id: 3,
-      type: 'certificate',
-      title: 'Data Structures & Algorithms with Java',
-      institution: 'NPTEL - National Programme on Technology Enhanced Learning',
-      duration: 'Certified',
-      details: 'Comprehensive course covering DSA concepts, problem-solving, and Java implementation with real-world applications.',
-      icon: '📜',
-      bgColor: '#10b981',
-    },
-    {
       id: 4,
-      type: 'certificate',
-      title: 'Design & Analysis of Algorithms',
-      institution: 'NPTEL - National Programme on Technology Enhanced Learning',
-      duration: 'Certified',
-      details: 'Advanced algorithmic concepts including complexity analysis, sorting, searching, and dynamic programming techniques.',
-      icon: '🔬',
-      bgColor: '#06b6d4',
-    },
-    {
-      id: 5,
-      type: 'certificate',
-      title: 'Full Stack Development Specialization',
-      institution: 'Coursera',
-      duration: 'Certified',
-      details: 'Complete full-stack web development course covering Frontend (React), Backend (Node.js), and Database design (MongoDB).',
-      icon: '🌐',
+      type: 'internship',
+      title: 'Full Stack Developer Intern',
+      institution: 'Feeltech Solution',
+      duration: 'Completed',
+      location: '📍 Ahmedabad, Gujarat',
+      details: 'Worked on MERN stack development and built a full-fledged robust project: an online pizza ordering system, independently learning and implementing core full-stack functionalities.',
+      icon: '🚀',
       bgColor: '#f97316',
     },
 
@@ -102,8 +94,8 @@ const Journey = () => {
         >
           <h2
             className={`text-4xl md:text-5xl font-bold mb-4 ${isDark
-                ? 'text-white'
-                : 'bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent'
+              ? 'text-white'
+              : 'bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent'
               }`}
           >
             My Journey
@@ -152,27 +144,27 @@ const Journey = () => {
                 >
                   <div
                     className={`p-6 rounded-2xl transition-all duration-300 ${isDark
-                        ? 'bg-gray-800 border border-gray-700 hover:border-gray-600'
-                        : 'bg-white shadow-lg border border-transparent hover:shadow-xl hover:border-blue-200'
+                      ? 'bg-gray-800 border border-gray-700 hover:border-gray-600'
+                      : 'bg-white shadow-lg border border-transparent hover:shadow-xl hover:border-blue-200'
                       }`}
                   >
                     {/* Badge */}
                     <div className="flex items-center gap-2 mb-3">
                       <span
                         className={`px-3 py-1 rounded-full text-xs font-semibold ${item.type === 'education'
+                          ? isDark
+                            ? 'bg-blue-900/40 text-blue-300'
+                            : 'bg-blue-100 text-blue-700'
+                          : item.type === 'internship'
                             ? isDark
-                              ? 'bg-blue-900/40 text-blue-300'
-                              : 'bg-blue-100 text-blue-700'
-                            : item.type === 'certificate'
-                              ? isDark
-                                ? 'bg-green-900/40 text-green-300'
-                                : 'bg-green-100 text-green-700'
-                              : isDark
-                                ? 'bg-purple-900/40 text-purple-300'
-                                : 'bg-purple-100 text-purple-700'
+                              ? 'bg-green-900/40 text-green-300'
+                              : 'bg-green-100 text-green-700'
+                            : isDark
+                              ? 'bg-purple-900/40 text-purple-300'
+                              : 'bg-purple-100 text-purple-700'
                           }`}
                       >
-                        {item.type === 'education' ? '🎓 Education' : item.type === 'certificate' ? '📜 Certificate' : '⭐ Achievement'}
+                        {item.type === 'education' ? '🎓 Education' : item.type === 'internship' ? '💼 Internship' : '⭐ Achievement'}
                       </span>
                       <span
                         className={`text-xs font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'
