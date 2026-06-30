@@ -172,8 +172,6 @@ const Hero = () => {
             >
               <motion.a
                 href={portfolioData.resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="px-7 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-blue-500/30 hover:shadow-xl transition-all duration-300 flex items-center gap-2"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}

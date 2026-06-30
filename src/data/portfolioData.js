@@ -5,7 +5,7 @@ export const portfolioData = {
   email: "dodiyaharsh692@gmail.com",
   linkedin: "https://www.linkedin.com/in/harsh-dodiya-5b7864270/",
   github: "https://github.com/harshdodiya58/",
-  resumeUrl: "/resume.pdf", // Resume file in public folder
+  resumeUrl: "/resume.html", // Resume viewer page in public folder
 
   nav: [
     { id: 1, label: "Home", href: "#home" },
