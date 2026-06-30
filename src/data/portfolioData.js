@@ -5,7 +5,7 @@ export const portfolioData = {
   email: "dodiyaharsh692@gmail.com",
   linkedin: "https://www.linkedin.com/in/harsh-dodiya-5b7864270/",
   github: "https://github.com/harshdodiya58/",
-  resumeUrl: "/resume.pdf", // Resume file in public folder
+  resumeUrl: "/Harsh_Dodiya_Resume%20(2).pdf", // Resume file in public folder
 
   nav: [
     { id: 1, label: "Home", href: "#home" },
@@ -20,7 +20,7 @@ export const portfolioData = {
 
   summary: `I am a passionate B.Tech Computer Science Engineering student with a strong focus on Full Stack Development, particularly the MERN (MongoDB, Express.js, React.js, Node.js) technology stack. My journey in software development has been driven by a genuine interest in building scalable, efficient, and user-centric web applications.
 
-Currently in my 6th semester, I have dedicated significant time to mastering both frontend and backend technologies. I specialize in creating responsive user interfaces with React.js and Tailwind CSS, while building robust server-side solutions using Node.js and Express.js. My experience with MongoDB has enabled me to design and implement efficient database schemas for various projects.
+Currently in my 7th semester, I have dedicated significant time to mastering both frontend and backend technologies. I specialize in creating responsive user interfaces with React.js and Tailwind CSS, while building robust server-side solutions using Node.js and Express.js. My experience with MongoDB has enabled me to design and implement efficient database schemas for various projects.
 
 What sets me apart is my commitment to continuous learning and my problem-solving approach. I thrive on turning complex requirements into clean, maintainable code. Whether it's implementing RESTful APIs, managing state in React applications, or optimizing database queries, I approach each challenge with enthusiasm and attention to detail.
 

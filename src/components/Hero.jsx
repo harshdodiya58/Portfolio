@@ -75,14 +75,6 @@ const Hero = () => {
     },
   };
 
-  const handleResumeDownload = () => {
-    if (portfolioData.resumeUrl && portfolioData.resumeUrl !== '#') {
-      window.open(portfolioData.resumeUrl, '_blank');
-    } else {
-      alert('Resume link will be added soon!');
-    }
-  };
-
   const handleContactClick = (e) => {
     e.preventDefault();
     document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
@@ -122,10 +114,10 @@ const Hero = () => {
         initial="hidden"
         animate="visible"
       >
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8 lg:gap-16">
 
           {/* ── LEFT: Text Content ── */}
-          <div className="flex-1 text-center lg:text-left">
+          <div className="order-2 lg:order-1 flex-1 text-center lg:text-left mt-2 lg:mt-0">
 
             {/* Badge */}
             <motion.div variants={itemVariants} className="flex justify-center lg:justify-start mb-4">
@@ -178,17 +170,19 @@ const Hero = () => {
               variants={itemVariants}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-8"
             >
-              <motion.button
-                onClick={handleResumeDownload}
+              <motion.a
+                href={portfolioData.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-7 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-blue-500/30 hover:shadow-xl transition-all duration-300 flex items-center gap-2"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Download Resume
+                View Resume
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
-              </motion.button>
+              </motion.a>
 
               <motion.a
                 href="#contact"
@@ -245,16 +239,16 @@ const Hero = () => {
           {/* ── RIGHT: Profile Image ── */}
           <motion.div
             variants={imageVariants}
-            className="flex-shrink-0 flex justify-center"
+            className="order-1 lg:order-2 flex-shrink-0 flex justify-center lg:justify-end lg:mt-6 lg:-translate-y-2 xl:-translate-y-4"
           >
             <div className="relative">
               {/* Rotating gradient ring */}
               <motion.div
-                className="absolute -inset-3 rounded-full"
+                className="absolute -inset-2 rounded-full"
                 style={{
                   background: 'conic-gradient(from 0deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6)',
-                  opacity: 0.6,
-                  filter: 'blur(6px)',
+                  opacity: 0.45,
+                  filter: 'blur(8px)',
                 }}
                 animate={{ rotate: 360 }}
                 transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
@@ -262,7 +256,7 @@ const Hero = () => {
 
               {/* Outer gradient border ring */}
               <div
-                className="relative w-72 h-72 md:w-96 md:h-96 rounded-full p-[3px]"
+                className="relative w-44 h-44 sm:w-56 sm:h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full p-[2px]"
                 style={{
                   background: 'linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899)',
                 }}
@@ -275,7 +269,7 @@ const Hero = () => {
                   <img
                     src="/profile.jpg"
                     alt="Harsh Dodiya"
-                    className="w-full h-full object-cover object-center"
+                    className="w-full h-full object-cover object-[50%_30%]"
                     loading="eager"
                     onError={(e) => {
                       e.target.style.display = 'none';
