@@ -1,9 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["three"],
+  output: "export",
+  distDir: "dist",
   images: {
-    formats: ["image/avif", "image/webp"],
+    unoptimized: true,
   },
 };
 
