@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { useTerminalStore } from "@/store/terminalStore";
 import { TerminalInput } from "./TerminalInput";
 import { motion } from "framer-motion";
@@ -31,7 +31,7 @@ export const TerminalContent = () => {
     <div className="h-full w-full overflow-y-auto p-4 sm:p-6 text-[15px] leading-relaxed">
       <div className="max-w-4xl mx-auto flex flex-col gap-2">
         {/* Render Command History */}
-        {history.map((record, idx) => (
+        {history.map((record) => (
           <div key={record.id} className="flex flex-col gap-1">
             {/* Command Echo */}
             <div className="flex flex-wrap gap-x-2 gap-y-1 text-[var(--color-text-main)] items-center">
