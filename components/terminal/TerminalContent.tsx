@@ -33,15 +33,15 @@ export const TerminalContent = () => {
         {/* Render Command History */}
         {history.map((record) => (
           <div key={record.id} className="flex flex-col gap-1">
-            {/* Command Echo */}
-            <div className="flex flex-wrap gap-x-2 gap-y-1 text-[var(--color-text-main)] items-center">
+            {/* Command Prompt Line */}
+            <div className="flex flex-wrap gap-x-2 gap-y-1 mt-2 items-center text-[var(--color-text-main)]">
               <div className="flex gap-1 items-center">
-                <span className="text-[var(--color-accent-green)] font-bold shrink-0">guest@portfolio</span>
+                <span className="text-[var(--color-accent-green)] font-bold shrink-0">Harsh@portfolio</span>
                 <span className="text-[var(--color-text-secondary)] shrink-0">:</span>
                 <span className="text-[var(--color-accent-blue)] font-bold shrink-0">~/portfolio</span>
                 <span className="text-[var(--color-text-main)] shrink-0">$</span>
               </div>
-              <span className="text-white">{record.command}</span>
+              <span className="font-mono">{record.command}</span>
             </div>
             
             {/* Command Output */}

@@ -13,21 +13,42 @@ export const TerminalInput = () => {
 
   // Focus input automatically when clicked anywhere in the window
   useEffect(() => {
-    const handleGlobalClick = () => {
+    const handleGlobalClick = (e: MouseEvent) => {
+      // Don't steal focus from elements that need it
+      if ((e.target as Element)?.closest?.('.no-focus-steal')) return;
+      
       // Don't focus if selecting text
       if (window.getSelection()?.toString() !== "") return;
       inputRef.current?.focus();
     };
-    
+
     document.addEventListener("click", handleGlobalClick);
     // Initial focus
     setTimeout(() => inputRef.current?.focus(), 100);
-    
+
     return () => document.removeEventListener("click", handleGlobalClick);
   }, []);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === "Tab") {
+      e.preventDefault(); // Prevent focus switching
+      const availableCommands = [
+        "help", "whoami", "about", "skills", "projects", "experience",
+        "education", "contact", "resume", "clear", "history", "theme",
+        "date", "pwd", "banner", "neofetch", "cat", "ls", "sudo", "coffee", "joke", "play"
+      ];
+
+      const currentInput = input.toLowerCase();
+      // Find matching commands
+      const matches = availableCommands.filter(cmd => cmd.startsWith(currentInput));
+
+      if (matches.length === 1) {
+        // Complete if exactly one match
+        setInput(matches[0] + " ");
+      } else if (matches.length > 1) {
+        setInput(matches[0]);
+      }
+    } else if (e.key === "Enter") {
       const command = input.trim();
       if (command) {
         // Execute the command and get the output ReactNode
@@ -45,7 +66,6 @@ export const TerminalInput = () => {
         const nextIndex = historyIndex + 1;
         if (nextIndex < history.length) {
           setHistoryIndex(nextIndex);
-          // History is stored oldest first, so we want the newest first (end of array)
           const cmd = history[history.length - 1 - nextIndex].command;
           setInput(cmd);
         }
@@ -67,7 +87,7 @@ export const TerminalInput = () => {
   return (
     <div className="flex flex-wrap gap-x-2 gap-y-1 text-[var(--color-text-main)] mt-1 items-center">
       <div className="flex gap-1 items-center">
-        <span className="text-[var(--color-accent-green)] font-bold shrink-0">guest@portfolio</span>
+        <span className="text-[var(--color-accent-green)] font-bold shrink-0">Harsh@portfolio</span>
         <span className="text-[var(--color-text-secondary)] shrink-0">:</span>
         <span className="text-[var(--color-accent-blue)] font-bold shrink-0">{currentDirectory}</span>
         <span className="text-[var(--color-text-main)] shrink-0">$</span>

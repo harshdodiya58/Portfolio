@@ -15,7 +15,7 @@ interface TerminalState {
   isClosed: boolean;
   currentDirectory: string;
   isBooting: boolean;
-  
+
   // Actions
   addRecord: (record: Omit<CommandRecord, 'id' | 'timestamp'>) => void;
   clearHistory: () => void;

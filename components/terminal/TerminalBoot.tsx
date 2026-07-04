@@ -66,7 +66,7 @@ export const TerminalBoot: React.FC<TerminalBootProps> = ({ onComplete }) => {
             key={idx}
             initial={{ opacity: 0, x: -5 }}
             animate={{ opacity: 1, x: 0 }}
-            className={`${idx === BOOT_SEQUENCE.length - 1 ? 'text-[var(--color-accent-green)]' : ''}`}
+            className={`${idx === BOOT_SEQUENCE.length - 1 ? 'text-[var(--color-accent-green)] glitch' : ''}`}
           >
             <span className="text-[var(--color-text-secondary)] mr-2">[{line.time}]</span>
             {line.text}

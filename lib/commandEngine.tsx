@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import { useTerminalStore } from "@/store/terminalStore";
 import { portfolioData } from "@/data/portfolio";
+import { SnakeGame } from "@/components/terminal/commands/SnakeGame";
 
 // Command components will be imported here
 // import { HeroSection } from "@/components/terminal/commands/HeroSection";
@@ -9,15 +10,21 @@ export const executeCommand = (commandStr: string): ReactNode => {
   const args = commandStr.trim().split(/\s+/);
   const cmd = args[0].toLowerCase();
 
+  if (cmd === "play" && args[1] === "snake") {
+    return <SnakeGame />;
+  }
+
   switch (cmd) {
     case "help":
       return (
         <div className="flex flex-col gap-2 my-2 text-[var(--color-text-secondary)]">
+          <p className="text-[var(--color-accent-blue)] font-bold mb-2 glitch uppercase tracking-widest text-lg">--- NEW: Try 'play snake' to play a game! ---</p>
           <p className="text-[var(--color-text-main)] font-semibold mb-1">Available commands:</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            <div><span className="text-[var(--color-accent-green)]">play snake</span> - Play Terminal Snake! 🐍</div>
+            <div><span className="text-[var(--color-accent-green)]">skills</span> - View 3D skills 🚀</div>
             <div><span className="text-[var(--color-accent-green)]">whoami</span> - About me</div>
             <div><span className="text-[var(--color-accent-green)]">about</span> - Read about.md</div>
-            <div><span className="text-[var(--color-accent-green)]">skills</span> - List tech stack</div>
             <div><span className="text-[var(--color-accent-green)]">projects</span> - View projects</div>
             <div><span className="text-[var(--color-accent-green)]">experience</span> - Work history</div>
             <div><span className="text-[var(--color-accent-green)]">education</span> - Education info</div>
@@ -43,7 +50,7 @@ export const executeCommand = (commandStr: string): ReactNode => {
       return null;
 
     case "pwd":
-      return <div className="my-1 text-white">/home/guest/portfolio</div>;
+      return <div className="my-1 text-white">/home/Harsh/portfolio</div>;
 
     case "date":
       return <div className="my-1 text-[var(--color-text-secondary)]">{new Date().toString()}</div>;
@@ -52,6 +59,11 @@ export const executeCommand = (commandStr: string): ReactNode => {
       return <div className="my-1 text-white">{args.slice(1).join(" ")}</div>;
 
     case "whoami":
+      if (args.length > 1) {
+        return <div className="my-1 text-[var(--color-accent-red)]">whoami: extra operand {args[1]}</div>;
+      }
+      return renderWhoami();
+      
     case "about":
     case "cat":
       if (cmd === "cat") {
@@ -64,7 +76,6 @@ export const executeCommand = (commandStr: string): ReactNode => {
         if (file === "projects.json") return renderProjects();
         return <div className="my-1 text-[var(--color-accent-red)]">cat: {file}: No such file or directory</div>;
       }
-      if (cmd === "whoami") return renderWhoami();
       if (cmd === "about") return renderAbout();
       break;
 
@@ -88,10 +99,10 @@ export const executeCommand = (commandStr: string): ReactNode => {
         );
       }
       break;
-      
+
     case "experience":
       return renderExperience();
-      
+
     case "education":
       return renderEducation();
 
@@ -114,7 +125,7 @@ export const executeCommand = (commandStr: string): ReactNode => {
       return (
         <div className="my-2 text-[var(--color-accent-yellow)]">
           <pre className="font-mono text-xs">
-{`
+            {`
       ( (
        ) )
     ........
@@ -184,7 +195,7 @@ export const executeCommand = (commandStr: string): ReactNode => {
     default:
       return (
         <div className="my-1">
-          <span className="text-[var(--color-accent-red)]">zsh: command not found: {cmd}</span>
+          <span className="text-[var(--color-accent-red)]">hd: command not found: {cmd}</span>
           <div className="text-[var(--color-text-secondary)] text-sm mt-1">Type <span className="text-[var(--color-accent-green)]">help</span> to see available commands.</div>
         </div>
       );
@@ -196,7 +207,7 @@ export const executeCommand = (commandStr: string): ReactNode => {
 const renderBanner = () => (
   <div className="my-4 overflow-x-auto w-full no-scrollbar">
     <pre className="text-[var(--color-accent-green)] font-mono text-[8px] sm:text-[10px] md:text-xs leading-[1.2] w-fit">
-{`
+      {`
   _    _                _       _____            _ _             
  | |  | |              | |     |  __ \\          | (_)            
  | |__| | __ _ _ __ ___| |__   | |  | | ___   __| |_ _   _  __ _ 
@@ -228,14 +239,14 @@ const renderNeofetch = () => (
 `}
     </div>
     <div className="flex flex-col gap-1">
-      <div className="font-bold text-[var(--color-accent-green)] mb-1">guest@portfolio</div>
+      <div className="font-bold text-[var(--color-accent-green)] mb-1">Harsh@portfolio</div>
       <div className="text-[var(--color-text-secondary)]">-----------------</div>
       <div><span className="text-[var(--color-accent-blue)] font-semibold">OS</span>: macOS Sonoma (Web Edition)</div>
       <div><span className="text-[var(--color-accent-blue)] font-semibold">Host</span>: Vercel / Next.js 15</div>
       <div><span className="text-[var(--color-accent-blue)] font-semibold">Kernel</span>: React 19 Engine</div>
       <div><span className="text-[var(--color-accent-blue)] font-semibold">Uptime</span>: 1 min, 42 secs</div>
       <div><span className="text-[var(--color-accent-blue)] font-semibold">Packages</span>: 1024 (npm)</div>
-      <div><span className="text-[var(--color-accent-blue)] font-semibold">Shell</span>: zsh 5.9</div>
+      <div><span className="text-[var(--color-accent-blue)] font-semibold">Shell</span>: hd 1.0</div>
       <div><span className="text-[var(--color-accent-blue)] font-semibold">Resolution</span>: 1920x1080</div>
       <div><span className="text-[var(--color-accent-blue)] font-semibold">WM</span>: Framer Motion Compositor</div>
       <div><span className="text-[var(--color-accent-blue)] font-semibold">Terminal</span>: React DOM</div>
@@ -283,8 +294,8 @@ const renderSkills = () => (
             <div key={skill.name} className="flex justify-between items-center group">
               <span className="text-[var(--color-text-secondary)] group-hover:text-white transition-colors">{skill.name}</span>
               <div className="w-24 h-1.5 bg-black/50 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-[var(--color-accent-blue)] rounded-full" 
+                <div
+                  className="h-full bg-[var(--color-accent-blue)] rounded-full"
                   style={{ width: `${skill.level}%` }}
                 />
               </div>
