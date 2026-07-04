@@ -6,6 +6,7 @@ export function useMediaQuery(query: string): boolean {
 
   useEffect(() => {
     const media = window.matchMedia(query);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMatches(media.matches);
 
     const handler = (e: MediaQueryListEvent) => setMatches(e.matches);
@@ -23,6 +24,7 @@ export function useIsMobile() {
 export function useIsTouch() {
   const [isTouch, setIsTouch] = useState(false);
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsTouch("ontouchstart" in window || navigator.maxTouchPoints > 0);
   }, []);
   return isTouch;

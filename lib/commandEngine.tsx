@@ -31,7 +31,7 @@ export const executeCommand = (commandStr: string): ReactNode => {
             <div><span className="text-[var(--color-accent-green)]">banner</span> - Show banner</div>
             <div><span className="text-[var(--color-accent-green)]">neofetch</span> - System info</div>
           </div>
-          <p className="mt-2 text-sm italic">Try 'sudo hire harsh' for a surprise.</p>
+          <p className="mt-2 text-sm italic">Try &apos;sudo hire harsh&apos; for a surprise.</p>
         </div>
       );
 
@@ -361,7 +361,7 @@ const renderEducation = () => (
 
 const renderContact = () => (
   <div className="my-4 max-w-md glass-panel p-6 rounded-xl border border-[var(--color-card)]">
-    <h3 className="text-xl text-white font-bold mb-4">Let's Connect</h3>
+    <h3 className="text-xl text-white font-bold mb-4">Let&apos;s Connect</h3>
     <div className="flex flex-col gap-4 text-[var(--color-text-secondary)]">
       <div className="flex items-center justify-between group">
         <span>Email</span>

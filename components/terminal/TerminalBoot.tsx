@@ -29,6 +29,7 @@ export const TerminalBoot: React.FC<TerminalBootProps> = ({ onComplete }) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 

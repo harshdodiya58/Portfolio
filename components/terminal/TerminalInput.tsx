@@ -6,6 +6,7 @@ import { executeCommand } from "@/lib/commandEngine";
 
 export const TerminalInput = () => {
   const [input, setInput] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const { history, currentDirectory, addRecord } = useTerminalStore();
@@ -78,6 +79,8 @@ export const TerminalInput = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
           className="w-full bg-transparent outline-none border-none caret-transparent text-transparent z-10 font-mono"
           autoComplete="off"
           spellCheck="false"
@@ -86,7 +89,7 @@ export const TerminalInput = () => {
         {/* Custom blinking cursor simulation */}
         <div className="absolute inset-0 pointer-events-none flex items-center">
           <span className="text-white whitespace-pre font-mono">{input}</span>
-          <span className={`w-[8px] h-[1em] bg-white inline-block ml-[1px] ${document.activeElement === inputRef.current ? 'cursor-blink' : 'opacity-50'}`} />
+          <span className={`w-[8px] h-[1em] bg-white inline-block ml-[1px] ${isFocused ? 'cursor-blink' : 'opacity-50'}`} />
         </div>
       </div>
     </div>
