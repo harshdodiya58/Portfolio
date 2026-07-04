@@ -1,26 +1,108 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-background: #0d1117;
+  --color-surface: #161b22;
+  --color-card: #1d2430;
+  --color-text-main: #e6edf3;
+  --color-text-secondary: #8b949e;
+  
+  --color-accent-green: #2ecc71;
+  --color-accent-blue: #58a6ff;
+  --color-accent-yellow: #e3b341;
+  --color-accent-purple: #bc8cff;
+  --color-accent-red: #ff6b6b;
+  --color-accent-cyan: #7ee7ff;
+
+  --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg: #0d1117;
+    --surface: #161b22;
+    --card: #1d2430;
+    --text-main: #e6edf3;
+    --text-secondary: #8b949e;
+  }
+  
+  .light {
+    --bg: #ffffff;
+    --surface: #f3f4f6;
+    --card: #e5e7eb;
+    --text-main: #111827;
+    --text-secondary: #4b5563;
+  }
+  
+  html {
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: var(--font-jetbrains-mono), monospace;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    overflow: hidden; /* App feels like an OS */
+  }
+
+  /* Custom Selection */
+  ::selection {
+    background: rgba(88, 166, 255, 0.3);
+    color: inherit;
+  }
+  
+  /* Scrollbar for terminal inner areas */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(139, 148, 158, 0.3);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 148, 158, 0.5);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .glass-panel {
+    background: rgba(22, 27, 34, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  
+  .glass-active {
+    background: rgba(29, 36, 48, 0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 10px currentColor;
+  }
+}
+
+/* Background animated noise */
+.noise-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* Cursor Animation */
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
