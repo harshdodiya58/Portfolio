@@ -3,7 +3,6 @@
 import React, { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
-import * as random from "math-utils/random.js"; // We'll just generate random points manually
 
 function CyberGlobe() {
   const ref = useRef<any>();
