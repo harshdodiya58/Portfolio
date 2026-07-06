@@ -15,9 +15,56 @@ export const SnakeGame = () => {
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   
   const gameRef = useRef<HTMLDivElement>(null);
   const directionRef = useRef<Direction>("RIGHT");
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+
+  // Detect touch screen device
+  useEffect(() => {
+    setIsTouchDevice(
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0 ||
+      (window.matchMedia && window.matchMedia("(pointer: coarse)").matches)
+    );
+  }, []);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!touchStartRef.current) return;
+
+    const touch = e.touches[0];
+    const diffX = touch.clientX - touchStartRef.current.x;
+    const diffY = touch.clientY - touchStartRef.current.y;
+    const threshold = 30; // minimum swipe distance in px
+
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+      // Horizontal swipe
+      if (Math.abs(diffX) > threshold) {
+        if (diffX > 0 && directionRef.current !== "LEFT") {
+          directionRef.current = "RIGHT";
+        } else if (diffX < 0 && directionRef.current !== "RIGHT") {
+          directionRef.current = "LEFT";
+        }
+        touchStartRef.current = null;
+      }
+    } else {
+      // Vertical swipe
+      if (Math.abs(diffY) > threshold) {
+        if (diffY > 0 && directionRef.current !== "UP") {
+          directionRef.current = "DOWN";
+        } else if (diffY < 0 && directionRef.current !== "DOWN") {
+          directionRef.current = "UP";
+        }
+        touchStartRef.current = null;
+      }
+    }
+  };
 
   // Keep focus on the game
   useEffect(() => {
@@ -162,9 +209,75 @@ export const SnakeGame = () => {
         <span className="text-white font-bold bg-black/40 px-3 py-1 rounded-md">SCORE: {score}</span>
       </div>
       
-      <div className="flex flex-col items-center select-none bg-black/60 p-4 rounded-lg shadow-inner">
+      <div 
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        className="flex flex-col items-center select-none bg-black/60 p-4 rounded-lg shadow-inner touch-none"
+      >
         {renderGrid()}
       </div>
+
+      {isTouchDevice && isPlaying && (
+        <div className="flex flex-col items-center gap-2 mt-4 select-none">
+          {/* Up Button */}
+          <button
+            onTouchStart={(e) => {
+              e.preventDefault();
+              if (directionRef.current !== "DOWN") directionRef.current = "UP";
+            }}
+            onClick={() => {
+              if (directionRef.current !== "DOWN") directionRef.current = "UP";
+            }}
+            className="w-12 h-12 flex items-center justify-center rounded-xl bg-[var(--color-card)]/80 border border-[var(--color-accent-green)]/30 text-[var(--color-accent-green)] active:bg-[var(--color-accent-green)] active:text-black active:shadow-[0_0_15px_rgba(46,204,113,0.4)] transition-all text-xl font-bold font-sans"
+          >
+            ▲
+          </button>
+          
+          <div className="flex gap-6">
+            {/* Left Button */}
+            <button
+              onTouchStart={(e) => {
+                e.preventDefault();
+                if (directionRef.current !== "RIGHT") directionRef.current = "LEFT";
+              }}
+              onClick={() => {
+                if (directionRef.current !== "RIGHT") directionRef.current = "LEFT";
+              }}
+              className="w-12 h-12 flex items-center justify-center rounded-xl bg-[var(--color-card)]/80 border border-[var(--color-accent-green)]/30 text-[var(--color-accent-green)] active:bg-[var(--color-accent-green)] active:text-black active:shadow-[0_0_15px_rgba(46,204,113,0.4)] transition-all text-xl font-bold font-sans"
+            >
+              ◀
+            </button>
+            
+            {/* Down Button */}
+            <button
+              onTouchStart={(e) => {
+                e.preventDefault();
+                if (directionRef.current !== "UP") directionRef.current = "DOWN";
+              }}
+              onClick={() => {
+                if (directionRef.current !== "UP") directionRef.current = "DOWN";
+              }}
+              className="w-12 h-12 flex items-center justify-center rounded-xl bg-[var(--color-card)]/80 border border-[var(--color-accent-green)]/30 text-[var(--color-accent-green)] active:bg-[var(--color-accent-green)] active:text-black active:shadow-[0_0_15px_rgba(46,204,113,0.4)] transition-all text-xl font-bold font-sans"
+            >
+              ▼
+            </button>
+            
+            {/* Right Button */}
+            <button
+              onTouchStart={(e) => {
+                e.preventDefault();
+                if (directionRef.current !== "LEFT") directionRef.current = "RIGHT";
+              }}
+              onClick={() => {
+                if (directionRef.current !== "LEFT") directionRef.current = "RIGHT";
+              }}
+              className="w-12 h-12 flex items-center justify-center rounded-xl bg-[var(--color-card)]/80 border border-[var(--color-accent-green)]/30 text-[var(--color-accent-green)] active:bg-[var(--color-accent-green)] active:text-black active:shadow-[0_0_15px_rgba(46,204,113,0.4)] transition-all text-xl font-bold font-sans"
+            >
+              ▶
+            </button>
+          </div>
+        </div>
+      )}
 
       {!isPlaying && (
         <div className="absolute inset-0 bg-black/80 flex flex-col items-center justify-center rounded-xl backdrop-blur-sm z-10">
@@ -177,13 +290,17 @@ export const SnakeGame = () => {
             <div className="text-[var(--color-accent-green)] text-2xl font-bold mb-6 tracking-widest">SNAKE OS</div>
           )}
           <button 
+            onTouchStart={(e) => {
+              e.preventDefault();
+              resetGame();
+            }}
             onClick={resetGame}
             className="px-6 py-2.5 bg-[var(--color-accent-green)] text-black font-bold rounded-lg hover:bg-white hover:scale-105 transition-all shadow-[0_0_20px_rgba(46,204,113,0.4)]"
           >
             {gameOver ? "PLAY AGAIN" : "START GAME"}
           </button>
           <div className="text-[var(--color-text-secondary)] text-sm mt-4 animate-pulse">
-            (Press ENTER or Click to Start)
+            (Press ENTER, Tap or Click to Start)
           </div>
         </div>
       )}
