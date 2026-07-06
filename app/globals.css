@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #0d1117;
-  --color-surface: #161b22;
-  --color-card: #1d2430;
-  --color-text-main: #e6edf3;
-  --color-text-secondary: #8b949e;
+  --color-background: var(--bg);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-text-main: var(--text-main);
+  --color-text-secondary: var(--text-secondary);
   
-  --color-accent-green: #2ecc71;
-  --color-accent-blue: #58a6ff;
-  --color-accent-yellow: #e3b341;
-  --color-accent-purple: #bc8cff;
-  --color-accent-red: #ff6b6b;
-  --color-accent-cyan: #7ee7ff;
+  --color-accent-green: var(--accent-green);
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-yellow: var(--accent-yellow);
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-red: var(--accent-red);
+  --color-accent-cyan: var(--accent-cyan);
 
   --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
 }
@@ -24,14 +24,36 @@
     --card: #1d2430;
     --text-main: #e6edf3;
     --text-secondary: #8b949e;
+
+    --accent-green: #2ecc71;
+    --accent-blue: #58a6ff;
+    --accent-yellow: #e3b341;
+    --accent-purple: #bc8cff;
+    --accent-red: #ff6b6b;
+    --accent-cyan: #7ee7ff;
+
+    --glass-bg: rgba(22, 27, 34, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --terminal-bg: rgba(0, 0, 0, 0.4);
   }
   
   .light {
-    --bg: #ffffff;
-    --surface: #f3f4f6;
-    --card: #e5e7eb;
-    --text-main: #111827;
-    --text-secondary: #4b5563;
+    --bg: #f6f8fa;
+    --surface: #ffffff;
+    --card: #eaeef2;
+    --text-main: #24292f;
+    --text-secondary: #57606a;
+
+    --accent-green: #1a7f37;
+    --accent-blue: #0969da;
+    --accent-yellow: #9a6700;
+    --accent-purple: #8250df;
+    --accent-red: #cf222e;
+    --accent-cyan: #0599bc;
+
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --terminal-bg: rgba(255, 255, 255, 0.6);
   }
   
   html {
@@ -71,10 +93,10 @@
 
 @layer utilities {
   .glass-panel {
-    background: rgba(22, 27, 34, 0.7);
+    background: var(--glass-bg);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--glass-border);
   }
   
   .glass-active {

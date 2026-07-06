@@ -86,7 +86,7 @@ export const CommandPalette = () => {
                 placeholder="Search commands..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="w-full bg-transparent outline-none text-white font-mono placeholder:text-[var(--color-text-secondary)]"
+                className="w-full bg-transparent outline-none text-[var(--color-text-main)] font-mono placeholder:text-[var(--color-text-secondary)]"
               />
               <div className="flex gap-1 text-[10px] text-[var(--color-text-secondary)] font-mono border border-[var(--color-card)] rounded px-1.5 py-0.5 ml-2 bg-black/20">
                 ESC
@@ -99,7 +99,7 @@ export const CommandPalette = () => {
                   <button
                     key={cmd.id}
                     onClick={() => executeAction(cmd.action)}
-                    className="w-full flex items-center px-3 py-2.5 rounded-lg text-left text-white hover:bg-[var(--color-accent-blue)]/20 hover:text-[var(--color-accent-blue)] transition-colors group cursor-pointer"
+                    className="w-full flex items-center px-3 py-2.5 rounded-lg text-left text-[var(--color-text-main)] hover:bg-[var(--color-accent-blue)]/20 hover:text-[var(--color-accent-blue)] transition-colors group cursor-pointer"
                   >
                     <span className="text-[var(--color-text-secondary)] group-hover:text-[var(--color-accent-blue)] mr-3 transition-colors">
                       {cmd.icon}

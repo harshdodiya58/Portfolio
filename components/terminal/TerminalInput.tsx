@@ -108,8 +108,8 @@ export const TerminalInput = () => {
         />
         {/* Custom blinking cursor simulation */}
         <div className="absolute inset-0 pointer-events-none flex items-center">
-          <span className="text-white whitespace-pre font-mono">{input}</span>
-          <span className={`w-[8px] h-[1em] bg-white inline-block ml-[1px] ${isFocused ? 'cursor-blink' : 'opacity-50'}`} />
+          <span className="text-[var(--color-text-main)] whitespace-pre font-mono">{input}</span>
+          <span className={`w-[8px] h-[1em] bg-[var(--color-text-main)] inline-block ml-[1px] ${isFocused ? 'cursor-blink' : 'opacity-50'}`} />
         </div>
       </div>
     </div>

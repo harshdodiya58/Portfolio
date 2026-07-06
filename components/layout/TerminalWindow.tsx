@@ -84,7 +84,7 @@ export const TerminalWindow = () => {
       </div>
 
       {/* Terminal Content Area */}
-      <div className="flex-1 relative overflow-hidden bg-black/40 backdrop-blur-3xl">
+      <div className="flex-1 relative overflow-hidden bg-[var(--terminal-bg)] backdrop-blur-3xl">
         <TerminalContent />
       </div>
     </motion.div>
