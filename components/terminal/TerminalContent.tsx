@@ -8,11 +8,16 @@ import { TerminalBoot } from "./TerminalBoot";
 
 export const TerminalContent = () => {
   const { history, isBooting, setBooting, addRecord } = useTerminalStore();
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   
   // Auto-scroll to bottom when history changes
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (containerRef.current) {
+      containerRef.current.scrollTo({
+        top: containerRef.current.scrollHeight,
+        behavior: "smooth"
+      });
+    }
   }, [history]);
 
   const handleBootComplete = async () => {
@@ -28,7 +33,10 @@ export const TerminalContent = () => {
   }
 
   return (
-    <div className="h-full w-full overflow-y-auto p-4 sm:p-6 text-[15px] leading-relaxed">
+    <div 
+      ref={containerRef}
+      className="h-full w-full overflow-y-auto p-4 sm:p-6 text-[15px] leading-relaxed"
+    >
       <div className="max-w-4xl mx-auto flex flex-col gap-2">
         {/* Render Command History */}
         {history.map((record) => (
@@ -59,8 +67,7 @@ export const TerminalContent = () => {
         {/* Active Input Prompt */}
         <TerminalInput />
         
-        {/* Invisible element to scroll to */}
-        <div ref={bottomRef} className="h-4" />
+        <div className="h-4" />
       </div>
     </div>
   );
