@@ -27,6 +27,10 @@ export const TerminalWindow = () => {
   return (
     <motion.div
       ref={windowRef}
+      drag={!isMaximized}
+      dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
+      dragElastic={0.2}
+      dragTransition={{ bounceStiffness: 400, bounceDamping: 25 }}
       initial={{ scale: 0.95, opacity: 0, y: 10 }}
       animate={{
         scale: 1,
@@ -42,8 +46,9 @@ export const TerminalWindow = () => {
         zIndex: 10,
       }}
     >
+      {/* Title Bar */}
       <div
-        className="h-12 flex items-center justify-between px-4 bg-[var(--color-surface)]/80 backdrop-blur-md border-b border-[var(--color-text-secondary)]/10 select-none"
+        className="h-12 flex items-center justify-between px-4 bg-[var(--color-surface)]/80 backdrop-blur-md border-b border-[var(--color-text-secondary)]/10 select-none cursor-grab active:cursor-grabbing"
       >
         {/* Traffic Lights */}
         <div className="flex items-center gap-2 w-20">
