@@ -18,7 +18,7 @@ export const executeCommand = (commandStr: string): ReactNode => {
     case "help":
       return (
         <div className="flex flex-col gap-2 my-2 text-[var(--color-text-secondary)]">
-          <p className="text-[var(--color-accent-blue)] font-bold mb-2 glitch uppercase tracking-widest text-lg">--- NEW: Try 'play snake' to play a game! ---</p>
+          <p className="text-[var(--color-accent-blue)] font-bold mb-2 glitch uppercase tracking-widest text-lg">--- NEW: Try &apos;play snake&apos; to play a game! ---</p>
           <p className="text-[var(--color-text-main)] font-semibold mb-1">Available commands:</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             <div><span className="text-[var(--color-accent-green)]">play snake</span> - Play Terminal Snake! 🐍</div>
