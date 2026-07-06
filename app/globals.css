@@ -38,22 +38,22 @@
   }
   
   .light {
-    --bg: #f6f8fa;
+    --bg: #fafafa;
     --surface: #ffffff;
-    --card: #eaeef2;
-    --text-main: #24292f;
-    --text-secondary: #57606a;
+    --card: #f3f4f6;
+    --text-main: #111827;
+    --text-secondary: #4b5563;
 
-    --accent-green: #1a7f37;
-    --accent-blue: #0969da;
-    --accent-yellow: #9a6700;
-    --accent-purple: #8250df;
-    --accent-red: #cf222e;
-    --accent-cyan: #0599bc;
+    --accent-green: #16a34a;
+    --accent-blue: #2563eb;
+    --accent-yellow: #ca8a04;
+    --accent-purple: #9333ea;
+    --accent-red: #dc2626;
+    --accent-cyan: #0891b2;
 
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(0, 0, 0, 0.08);
-    --terminal-bg: rgba(255, 255, 255, 0.6);
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(0, 0, 0, 0.06);
+    --terminal-bg: rgba(255, 255, 255, 0.85);
   }
   
   html {
@@ -165,4 +165,13 @@
   2%, 64% { transform: translate(2px,0) skew(0deg); }
   4%, 60% { transform: translate(-2px,0) skew(0deg); }
   62% { transform: translate(0,0) skew(5deg); }
+}
+
+/* Reduce CRT overlay effects in Light Mode */
+.light .crt::before {
+  opacity: 0.08; /* Make scanlines barely visible in light mode */
+}
+
+.light .crt::after {
+  opacity: 0.12; /* Reduce vignette darkness in light mode */
 }
