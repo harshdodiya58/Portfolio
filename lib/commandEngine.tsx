@@ -22,7 +22,7 @@ export const executeCommand = (commandStr: string): ReactNode => {
           <p className="text-[var(--color-text-main)] font-semibold mb-1">Available commands:</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             <div><span className="text-[var(--color-accent-green)]">play snake</span> - Play Terminal Snake! 🐍</div>
-            <div><span className="text-[var(--color-accent-green)]">skills</span> - View 3D skills 🚀</div>
+            <div><span className="text-[var(--color-accent-green)]">skills</span> - View skills 🚀</div>
             <div><span className="text-[var(--color-accent-green)]">whoami</span> - About me</div>
             <div><span className="text-[var(--color-accent-green)]">about</span> - Read about.md</div>
             <div><span className="text-[var(--color-accent-green)]">projects</span> - View projects</div>
