@@ -152,7 +152,7 @@ export const executeCommand = (commandStr: string): ReactNode => {
       return renderBanner();
 
     case "neofetch":
-      return renderNeofetch();
+      return <Neofetch />;
 
     case "resume":
       return (
@@ -224,47 +224,143 @@ const renderBanner = () => (
   </div>
 );
 
-const renderNeofetch = () => (
-  <div className="my-4 flex flex-col sm:flex-row gap-6 font-mono text-sm">
-    <div className="text-[var(--color-accent-blue)] font-bold whitespace-pre leading-tight">
-      {`
-       .---.
-      /     \\
-     | () () |
-      \\  M  /
-       |   |
-      /     \\
-     /       \\
-    /_________\\
+const Neofetch = () => {
+  const [uptime, setUptime] = React.useState("0 mins, 0 secs");
+  const [resolution, setResolution] = React.useState("1920x1080");
+  const [os, setOs] = React.useState("macOS Sonoma (Web Edition)");
+  const [memory, setMemory] = React.useState("512 MB / 8192 MB");
+
+  React.useEffect(() => {
+    // Dynamic uptime
+    const startTime = Date.now();
+    const updateTime = () => {
+      const diffMs = Date.now() - startTime;
+      const diffMins = Math.floor(diffMs / 60000);
+      const diffSecs = Math.floor((diffMs % 60000) / 1000);
+      setUptime(`${diffMins} min${diffMins !== 1 ? 's' : ''}, ${diffSecs} sec${diffSecs !== 1 ? 's' : ''}`);
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+
+    // Dynamic resolution
+    if (typeof window !== 'undefined') {
+      setResolution(`${window.screen.width}x${window.screen.height}`);
+      
+      // Dynamic OS based on userAgent
+      const ua = window.navigator.userAgent;
+      if (ua.indexOf("Windows") !== -1) setOs("Windows 11 (Web Edition)");
+      else if (ua.indexOf("Mac") !== -1) setOs("macOS Sequoia (Web Edition)");
+      else if (ua.indexOf("Linux") !== -1) setOs("Linux (Web Edition)");
+      else if (ua.indexOf("Android") !== -1) setOs("Android (Web Edition)");
+      else if (ua.indexOf("iPhone") !== -1) setOs("iOS (Web Edition)");
+
+      // Dynamic memory
+      const perf = window.performance as any;
+      if (perf && perf.memory) {
+        const updateMem = () => {
+          const used = Math.round(perf.memory.usedJSHeapSize / 1048576);
+          const limit = Math.round(perf.memory.jsHeapSizeLimit / 1048576);
+          setMemory(`${used} MB / ${limit} MB (JS Heap)`);
+        };
+        updateMem();
+        const memInterval = setInterval(updateMem, 2000);
+        return () => {
+          clearInterval(interval);
+          clearInterval(memInterval);
+        };
+      }
+    }
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="my-4 flex flex-col sm:flex-row gap-8 font-mono text-sm items-start">
+      {/* Cool ASCII Logo */}
+      <div className="text-[var(--color-accent-blue)] font-bold whitespace-pre leading-tight drop-shadow-[0_0_8px_var(--color-accent-blue)] animate-pulse">
+        {`
+       .──────────────────.
+      /                    \\
+     |   .--------------.   |
+     |   |  __   __     |   |
+     |   | |  | |  \\    |   |
+     |   | |--| |   |   |   |
+     |   | |  | |__/    |   |
+     |   |              |   |
+     |   '--------------'   |
+      \\                    /
+       '──────────────────'
+          \\_________/
+          /_________\\
+         /__________\\
 `}
-    </div>
-    <div className="flex flex-col gap-1">
-      <div className="font-bold text-[var(--color-accent-green)] mb-1">Harsh@portfolio</div>
-      <div className="text-[var(--color-text-secondary)]">-----------------</div>
-      <div><span className="text-[var(--color-accent-blue)] font-semibold">OS</span>: macOS Sonoma (Web Edition)</div>
-      <div><span className="text-[var(--color-accent-blue)] font-semibold">Host</span>: Vercel / Next.js 15</div>
-      <div><span className="text-[var(--color-accent-blue)] font-semibold">Kernel</span>: React 19 Engine</div>
-      <div><span className="text-[var(--color-accent-blue)] font-semibold">Uptime</span>: 1 min, 42 secs</div>
-      <div><span className="text-[var(--color-accent-blue)] font-semibold">Packages</span>: 1024 (npm)</div>
-      <div><span className="text-[var(--color-accent-blue)] font-semibold">Shell</span>: hd 1.0</div>
-      <div><span className="text-[var(--color-accent-blue)] font-semibold">Resolution</span>: 1920x1080</div>
-      <div><span className="text-[var(--color-accent-blue)] font-semibold">WM</span>: Framer Motion Compositor</div>
-      <div><span className="text-[var(--color-accent-blue)] font-semibold">Terminal</span>: React DOM</div>
-      <div><span className="text-[var(--color-accent-blue)] font-semibold">CPU</span>: Harsh Dodiya Neural Net v2.0</div>
-      <div><span className="text-[var(--color-accent-blue)] font-semibold">Memory</span>: 8192MiB / 16384MiB</div>
-      <div className="flex gap-1 mt-2">
-        <div className="w-4 h-4 bg-black"></div>
-        <div className="w-4 h-4 bg-red-500"></div>
-        <div className="w-4 h-4 bg-green-500"></div>
-        <div className="w-4 h-4 bg-yellow-500"></div>
-        <div className="w-4 h-4 bg-blue-500"></div>
-        <div className="w-4 h-4 bg-purple-500"></div>
-        <div className="w-4 h-4 bg-cyan-500"></div>
-        <div className="w-4 h-4 bg-white"></div>
+      </div>
+      
+      {/* Neofetch Details */}
+      <div className="flex flex-col gap-1.5 text-[var(--color-text-secondary)]">
+        <div className="font-bold text-[var(--color-accent-green)] text-lg mb-1 tracking-wider drop-shadow-[0_0_6px_var(--color-accent-green)]">Harsh@portfolio</div>
+        <div className="text-[var(--color-card)] tracking-widest h-1 font-bold">=================</div>
+        
+        <div className="flex items-center gap-2 mt-2">
+          <span className="text-[var(--color-accent-blue)] font-semibold w-24">OS</span>
+          <span className="text-white">: {os}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[var(--color-accent-blue)] font-semibold w-24">Host</span>
+          <span className="text-white">: Vercel / Next.js 16.2.10</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[var(--color-accent-blue)] font-semibold w-24">Kernel</span>
+          <span className="text-white">: React 19 Engine</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[var(--color-accent-blue)] font-semibold w-24">Uptime</span>
+          <span className="text-[var(--color-accent-green)] font-semibold">: {uptime}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[var(--color-accent-blue)] font-semibold w-24">Packages</span>
+          <span className="text-white">: 1024 (npm)</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[var(--color-accent-blue)] font-semibold w-24">Shell</span>
+          <span className="text-white">: hd-shell v1.5</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[var(--color-accent-blue)] font-semibold w-24">Resolution</span>
+          <span className="text-white">: {resolution}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[var(--color-accent-blue)] font-semibold w-24">WM</span>
+          <span className="text-white">: Framer Motion Compositor</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[var(--color-accent-blue)] font-semibold w-24">Terminal</span>
+          <span className="text-white">: React DOM / Tailwind CSS</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[var(--color-accent-blue)] font-semibold w-24">CPU</span>
+          <span className="text-white">: Harsh Dodiya Neural Net v3.0</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[var(--color-accent-blue)] font-semibold w-24">Memory</span>
+          <span className="text-[var(--color-accent-purple)] font-semibold">: {memory}</span>
+        </div>
+        
+        {/* Glow Color blocks */}
+        <div className="flex gap-2 mt-4">
+          <div className="w-5 h-5 rounded-full bg-black border border-neutral-700 shadow-md"></div>
+          <div className="w-5 h-5 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.6)]"></div>
+          <div className="w-5 h-5 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.6)]"></div>
+          <div className="w-5 h-5 rounded-full bg-yellow-500 shadow-[0_0_10px_rgba(234,179,8,0.6)]"></div>
+          <div className="w-5 h-5 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.6)]"></div>
+          <div className="w-5 h-5 rounded-full bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.6)]"></div>
+          <div className="w-5 h-5 rounded-full bg-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.6)]"></div>
+          <div className="w-5 h-5 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.6)]"></div>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const renderWhoami = () => (
   <div className="my-4">
